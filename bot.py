@@ -1,14 +1,13 @@
 import discord
 from discord.ext import commands
-import json
 import os
 
 intents = discord.Intents.all()
 
-with open("config.json") as f:
-    config = json.load(f)
+TOKEN = os.getenv("TOKEN")
+PREFIX = os.getenv("PREFIX", "!")  # default to "!" if not set
 
-bot = commands.Bot(command_prefix=config["prefix"], intents=intents)
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
 @bot.event
 async def on_ready():
@@ -16,4 +15,4 @@ async def on_ready():
 
 bot.load_extension("cogs.music")
 
-bot.run(config["token"])
+bot.run(TOKEN)
